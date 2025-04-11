@@ -64,6 +64,13 @@ const Signup = () => {
               className="input w-full"
               placeholder="Email"
             />
+            <label className="fieldset-label text-2xl font-bold">Photo</label>
+            <input
+              name="photo"
+              type="Photo"
+              className="input w-full"
+              placeholder="PhotoURL"
+            />
             <label className="fieldset-label text-2xl font-bold">
               Password
             </label>
