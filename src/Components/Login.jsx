@@ -1,14 +1,16 @@
 import { createUserWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import auth from "../firebase.init";
 
 const Login = () => {
   const [err, setErr] = useState("");
+  const emailRef = useRef();
   const [verify,setVerify] = useState('');
   const summitHandler = (e) => {
     e.preventDefault();
     const email = e.target.email.value;
     const password = e.target.pass.value;
+    console.log(emailRef);
 
     const strongPasswordRegex =
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{6,}$/;
@@ -53,6 +55,7 @@ const Login = () => {
                   <input
                     name="email"
                     type="email"
+                    ref={emailRef}
                     className="input"
                     placeholder="Email"
                   />
