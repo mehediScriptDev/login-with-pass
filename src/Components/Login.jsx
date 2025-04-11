@@ -31,7 +31,7 @@ const Login = () => {
         setVerify('verification msg sent!')
       })
       .catch((error) => {
-        setErr("somethings not right.try again later.");
+        setErr("somethings not right.");
       });
   };
   return (
