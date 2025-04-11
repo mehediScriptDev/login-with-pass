@@ -50,6 +50,13 @@ const Signup = () => {
         <h1 className="text-3xl font-bold">Sign Up now!</h1>
         <form onSubmit={submitHandler}>
           <fieldset className="fieldset w-3/5 mx-auto bg-base-200 p-4 relative">
+            <label className="fieldset-label text-2xl font-bold">Name</label>
+            <input
+              name="name"
+              type="name"
+              className="input w-full"
+              placeholder="name"
+            />
             <label className="fieldset-label text-2xl font-bold">Email</label>
             <input
               name="email"
