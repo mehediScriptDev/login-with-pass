@@ -1,4 +1,4 @@
-import { createUserWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
+import { createUserWithEmailAndPassword, sendEmailVerification, sendPasswordResetEmail } from "firebase/auth";
 import React, { useRef, useState } from "react";
 import auth from "../firebase.init";
 
@@ -38,6 +38,19 @@ const Login = () => {
   };
   const forgetHandler = () => {
     const email = emailRef.current.value;
+    if(!email){
+      alert('please provide an email.')
+      return;
+    }
+    else{
+      sendPasswordResetEmail(auth,email)
+      .then(result=>{
+        console.log('reset email sent.')
+      })
+      .catch(error=>{
+        console.log('error found.')
+      })
+    }
   }
   return (
     <div>
