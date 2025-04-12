@@ -1,4 +1,4 @@
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import React, { useState } from "react";
 import auth from "../firebase.init";
 import { IoEye } from "react-icons/io5";
@@ -41,6 +41,12 @@ const Signup = () => {
       .then((result) => {
         console.log(result.user);
       })
+      // update profile information
+      const profile = {
+        displayName: name,
+        photoURL: photo
+      }
+      updateProfile(auth.currentUser, profile)
       .catch((error) => {
         console.log(error);
         setErr(error.message);
