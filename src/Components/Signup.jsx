@@ -72,7 +72,7 @@ const Signup = () => {
   };
   return (
     <div>
-      <div className="card-body ">
+      <div className="card-body">
         <h1 className="text-3xl font-bold">Sign Up now!</h1>
         <form onSubmit={submitHandler}>
           <fieldset className="fieldset w-3/5 mx-auto bg-base-200 p-4 relative">
