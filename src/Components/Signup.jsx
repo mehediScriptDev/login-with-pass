@@ -13,6 +13,8 @@ const Signup = () => {
     const email = e.target.email.value;
     const password = e.target.pass.value;
     const terms = e.target.term.checked;
+    const name = e.target.name.value;
+    const photo = e.target.photo.value;
     console.log(email);
     console.log(password);
     setErr("");
