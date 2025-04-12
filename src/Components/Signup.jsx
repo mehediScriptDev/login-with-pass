@@ -1,4 +1,8 @@
-import { createUserWithEmailAndPassword, sendEmailVerification, updateProfile } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  sendEmailVerification,
+  updateProfile,
+} from "firebase/auth";
 import React, { useState } from "react";
 import auth from "../firebase.init";
 import { IoEye } from "react-icons/io5";
@@ -19,8 +23,8 @@ const Signup = () => {
     console.log(password);
     setErr("");
 
-    if(!terms){
-      setErr('Please accept terms and conditions.');
+    if (!terms) {
+      setErr("Please accept terms and conditions.");
       return;
     }
 
@@ -39,30 +43,32 @@ const Signup = () => {
     // creat new user
     createUserWithEmailAndPassword(auth, email, password)
       .then((result) => {
-        console.log(result.user);
-      })
-      sendEmailVerification(auth.currentUser)
-      .then(()=>{
-        console.log('email sent.')
-      })
-       // update profile information
-       const profile = {
-        displayName: name,
-        photoURL: photo
-      }
-      updateProfile(auth.currentUser, profile)
-      .then(()=>{
-        console.log('profile updated.')
-      })
-      .catch(()=>{
-        console.log('found error...')
-      })
+        const user = result.user;
+        console.log("User created:", user);
 
+        // Update profile first
+        updateProfile(user, {
+          displayName: name,
+          photoURL: photo,
+        })
+          .then(() => {
+            console.log("Profile updated");
+
+            // Send email verification after profile update
+            return sendEmailVerification(user);
+          })
+          .then(() => {
+            console.log("Email verification sent.");
+          })
+          .catch((error) => {
+            console.error("Error during profile update or email:", error);
+            setErr(error.message);
+          });
+      })
       .catch((error) => {
-        console.log(error);
+        console.error("Error creating user:", error);
         setErr(error.message);
       });
-      
   };
   return (
     <div>
@@ -96,7 +102,7 @@ const Signup = () => {
             </label>
             <input
               name="pass"
-              type={eye ? "password":"text"}
+              type={eye ? "password" : "text"}
               className="input w-full"
               placeholder="Password"
             />
@@ -106,15 +112,19 @@ const Signup = () => {
             >
               {eye ? <IoEye /> : <FaEyeSlash />}
             </button>
-           
+
             <label className="fieldset-label">
-              <input name="term" type="checkbox" defaultChecked className="checkbox" />
+              <input
+                name="term"
+                type="checkbox"
+                defaultChecked
+                className="checkbox"
+              />
               Accept our terms and conditions
             </label>
-          
+
             <button className="btn btn-neutral mt-4">Login</button>
           </fieldset>
-          
         </form>
         {err && <p className=" text-red-600">{err}</p>}
       </div>
