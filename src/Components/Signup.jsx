@@ -41,8 +41,12 @@ const Signup = () => {
       .then((result) => {
         console.log(result.user);
       })
-      // update profile information
-      const profile = {
+      sendEmailVerification(auth.currentUser)
+      .then(()=>{
+        console.log('email sent.')
+      })
+       // update profile information
+       const profile = {
         displayName: name,
         photoURL: photo
       }
@@ -50,20 +54,15 @@ const Signup = () => {
       .then(()=>{
         console.log('profile updated.')
       })
-      .catch(error=>{
-        console.log('found error')
+      .catch(()=>{
+        console.log('found error...')
       })
+
       .catch((error) => {
         console.log(error);
         setErr(error.message);
       });
-      sendEmailVerification(auth.currentUser)
-      .then(()=>{
-        console.log('email sent.')
-      })
-      .catch(()=>{
-        console.log('found error...')
-      })
+      
   };
   return (
     <div>
